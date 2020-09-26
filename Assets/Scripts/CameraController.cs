@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
@@ -42,7 +43,12 @@ public class CameraController : MonoBehaviour {
 		{
 			transform.Translate(Vector3.left * panSpeed * Time.deltaTime, Space.World);
 		}
-		
+
+		Vector3 cameraPos = transform.position;
+		cameraPos.x = Mathf.Clamp(cameraPos.x, -90, 90);
+		cameraPos.z = Mathf.Clamp(cameraPos.z, -90, 90);
+		transform.position = cameraPos;
+
 		float scroll = Input.GetAxis("Mouse ScrollWheel");
 
 		Vector3 pos = transform.position;
